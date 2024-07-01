@@ -50,6 +50,6 @@ class TodoRepository extends BaseRepository implements TodoRepositoryInterface
 
     public function find(string $id)
     {
-        return $this->model->with(['category', 'subtasks'])->find($id);
+        return $this->model->with(['category', 'subtasks'])->findOrfail($id);
     }
 }

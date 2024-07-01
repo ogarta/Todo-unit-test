@@ -57,6 +57,7 @@
                                     <form action="{{ route('todo.destroy', $subtask->id) }}" method="POST" class="inline">
                                         @csrf
                                         @method('DELETE')
+                                        <input type="hidden" name="is_subtask" value="1" />
                                         <button type="submit" class="disabled:opacity-75 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ms-2" @disabled($subtask->completed)>Delete</button>
                                     </form>
                                 </li>
@@ -120,7 +121,7 @@
                         <form action="{{ route('todo.destroy', $todo->id) }}" method="POST" class="inline">
                             @csrf
                             @method('DELETE')
-                            <button type="button" class="disabled:opacity-75 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2">Delete</button>
+                            <button type="submit" class="disabled:opacity-75 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-2">Delete</button>
                         </form>
                     </fieldset>
                 </div>

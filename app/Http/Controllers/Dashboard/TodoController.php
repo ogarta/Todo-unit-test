@@ -79,10 +79,13 @@ class TodoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
         $this->todoService->delete($id);
-        return redirect()->back();
+        if ($request->get('is_subtask')) {
+            return redirect()->back();
+        }
+        return redirect()->route('todo.index');
     }
 
     public function storeSubtask(StoreSubTodoRequest $request, Todo $todo)
