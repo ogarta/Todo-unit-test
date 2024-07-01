@@ -27,12 +27,12 @@ class TodoService extends BaseService
 
     public function create(array $data)
     {
-        return $this->todoRepository->create($data);
+        return $this->todoRepository->create($this->standardizeData($data));
     }
 
     public function update(array $data, string $id)
     {
-        return $this->todoRepository->update($data, $id);
+        return $this->todoRepository->update($this->standardizeData($data), $id);
     }
 
     public function delete(string $id)
@@ -42,7 +42,7 @@ class TodoService extends BaseService
 
     public function createSubtask(array $data, Todo $todo)
     {
-        return $todo->subtasks()->create($data);
+        return $todo->subtasks()->create($this->standardizeData($data));
     }
 
     public function getFilter(array $data)
@@ -53,5 +53,16 @@ class TodoService extends BaseService
             'priority' => $data['priority'] ?? null,
             'due_date' => $data['due_date'] ?? null
         ];
+    }
+
+    public function standardizeData(array $data)
+    {
+        $keys = ['category_id', 'priority', 'completed'];
+        foreach ($data as $key => $value) {
+            if (in_array($key, $keys)) {
+                $data[$key] = $value ? (int) $value : null;
+            }
+        }
+        return $data;
     }
 }

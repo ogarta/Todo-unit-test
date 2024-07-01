@@ -16,7 +16,9 @@ class BaseModel extends Model
         parent::boot();
 
         static::creating(function ($todo) {
-            $todo->user_id = auth()->id();
+            if (auth()->check()) {
+                $todo->user_id = auth()->id();
+            }
         });
     }
 }
