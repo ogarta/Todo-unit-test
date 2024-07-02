@@ -42,7 +42,12 @@ class TodoRepository extends BaseRepository implements TodoRepositoryInterface
             ]);
 
         return $query
-            ->where('user_id', auth()->id())
+            ->whereHas('project', function ($query) use ($data) {
+                $query->whereHas('users', function ($query) {
+                    $query->where('user_id', auth()->id());
+                })
+                ->where('id', $data['project_id']);
+            })
             ->whereNull('parent_id')
             ->with('category')
             ->orderBy('created_at', 'desc')->orderBy('priority', 'asc')->get();

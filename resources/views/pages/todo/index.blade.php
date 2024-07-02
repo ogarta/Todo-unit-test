@@ -91,6 +91,7 @@
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
                                     </select>
+                                    <input type="hidden" name="project_id" value="{{ request()->input('project_id') }}" />
                                     <input type="text" name="title" class="border-gray-300 border p-2 rounded-lg ms-2" placeholder="Add a new todo" style="color: black;" />
                                     <input type="datetime-local" name="due_date" class="border-gray-300 border p-2 rounded-lg ms-2" style="color: black;" />
                                     <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ms-2">Add</button>

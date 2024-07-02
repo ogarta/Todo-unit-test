@@ -36,6 +36,7 @@ class UpdateTodoRequest extends FormRequest
             'due_date' => 'nullable|date',
             'priority' => ['required',Rule::enum(PriorityEnum::class)],
             'completed' => 'nullable|in:' . implode(',', [CommonConst::COMPLETED, CommonConst::INCOMPLETE]),
+            'project_id' => 'required|exists:projects,id',
         ];
     }
 }

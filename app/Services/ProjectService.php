@@ -23,11 +23,21 @@ class ProjectService extends BaseService
 
     public function update(array $data, string $id)
     {
-        return $this->projectRepository->update($data, $id);
+        $project = $this->projectRepository->update($data, $id);
+
+        $project->users()->detach();
+        $project->users()->attach($data['users']);
+
+        return $project;
     }
 
     public function find(string $id)
     {
-        return $this->projectRepository->find($id)->load('users');
+        return $this->projectRepository->find($id);
+    }
+
+    public function delete(string $id)
+    {
+        return $this->projectRepository->delete($id);
     }
 }

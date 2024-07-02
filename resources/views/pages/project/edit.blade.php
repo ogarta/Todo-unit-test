@@ -18,28 +18,31 @@
                             </ul>
                         </div>
                     @endif
-                    <form action="{{ route('project.store') }}" method="POST">
+                    <form action="{{ route('project.update', $project) }}" method="POST">
                         @csrf
+                        @method('PUT')
                         <div class="mb-4">
                             <label for="name"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-200">Project Name</label>
                             <input type="text" name="name" id="name"
+                                value="{{ old('name', $project->name) }}"
                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-200">
                         </div>
                         <div class="mb-4">
                             <label for="description"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-200">Description</label>
                             <textarea name="description" id="description"
-                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-200"></textarea>
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-200">{{ old('description', $project->description) }}</textarea>
                         </div>
                         <div class="mb-4">
                             <label for="status"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-200">Status</label>
                             <select name="status" id="status"
                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-200">
-                                <option value="0">Pending</option>
-                                <option value="1">Completed</option>
-                                <option value="2">Closed</option>
+                                @foreach (\App\Enums\ProjectStatusEnum::cases() as $status)
+                                    <option value="{{ $status->value }}"
+                                        @selected($status->value == old('status', $project->status))>{{ $status->label() }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="mb-4">
@@ -57,6 +60,9 @@
                                     </li>
                                 @endforeach
                             </ul>
+                            <div class="mt-4">
+                                {{ $users->links() }}
+                            </div>
                         </div>
                         <div class="mb-4">
                             <button type="submit"

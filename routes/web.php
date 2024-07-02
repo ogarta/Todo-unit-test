@@ -14,6 +14,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('project', ProjectController::class);
     Route::resource('todo', TodoController::class);
     Route::post('subtask/{todo}', [TodoController::class, 'storeSubtask'])->name('subtask.store');
+    Route::put('subtask/{todo}', [TodoController::class, 'updateSubtask'])->name('subtask.update');
     Route::resource('categories', CategoryController::class);
 });
 

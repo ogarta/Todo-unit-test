@@ -44,7 +44,7 @@ abstract class BaseRepository {
 
     public function find(string $id)
     {
-        return $this->model->find($id);
+        return $this->model->with('users')->find($id);
     }
 
     public function findBy(string $field, string $value)

@@ -1,8 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Edit Todo list
-        </h2>
+        <div class="flex items-center">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight me-4">
+                Edit Todo list
+            </h2>
+            <a href="{{ route('todo.index') . '?project_id=' . $todo->project_id }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Back</a>
+        </div>
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -46,12 +49,12 @@
                                     @if ($subtask->completed)
                                         <del>{{ $subtask->title }}</del>
                                     @else
-                                        <form action="{{ route('todo.update', $subtask->id) }}" method="POST" id="updateSubtask-{{ $subtask->id }}">
+                                        <form action="{{ route('subtask.update', $subtask->id) }}" method="POST" id="updateSubtask-{{ $subtask->id }}">
                                             @csrf
                                             @method('PUT')
-                                            <input type="hidden" name="category_id" value="{{ $subtask->category_id }}" />
-                                            <input type="hidden" name="priority" value="{{ $subtask->priority }}" />
-                                            <input type="text" name="title" value="{{ $subtask->title }}" class="disabled:opacity-75 title-subtask form-control border-gray-300 border p-2 rounded-lg ms-2" style="color: black;" data-id="{{ $subtask->id }}" />
+                                            <input type="hidden" name="subtaskUpdate[category_id]" value="{{ $subtask->category_id }}" />
+                                            <input type="hidden" name="subtaskUpdate[priority]" value="{{ $subtask->priority }}" />
+                                            <input type="text" name="subtaskUpdate[title]" value="{{ old('subtaskUpdate.title', $subtask->title) }}" class="disabled:opacity-75 title-subtask form-control border-gray-300 border p-2 rounded-lg ms-2" style="color: black;" data-id="{{ $subtask->id }}" />
                                         </form>
                                     @endif
                                     <form action="{{ route('todo.destroy', $subtask->id) }}" method="POST" class="inline">
@@ -147,7 +150,6 @@
                     if (e.which == 13) {
                         e.preventDefault();
                         let id = $(this).data('id');
-                        console.log(e.which, id);
                         $('#updateSubtask-' + id).submit();
                     }
                 });

@@ -16,8 +16,9 @@
                                 <li class="flex justify-between mp-2 border-b border-gray-300 py-2 items-center">
                                     <span>{{ $project->name }}</span>
                                     <span>
+                                        <a class="btn-show bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" href="{{ route('todo.index') . '?project_id=' . $project->id }}">Todo List</a>
                                         <a class="btn-update bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" href="{{ route('project.edit', $project->id) }}">Edit</a>
-                                        <form action="{{ route('todo.destroy', $project->id) }}" method="POST" class="inline">
+                                        <form action="{{ route('project.destroy', $project->id) }}" method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded disabled:opacity-75">Delete</button>
@@ -33,7 +34,10 @@
                             @endif
                         </ul>
                     </div>
-                    <a class="btn-create bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" href="{{ route('project.create') }}">Create Project</a>
+                    <div class="mt-4">
+                        {{ $projects->links() }}
+                    </div>
+                    <a class="btn-create bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded" href="{{ route('project.create') }}">Create Project</a>
                 </div>
             </div>
         </div>

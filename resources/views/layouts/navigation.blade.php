@@ -15,9 +15,6 @@
                     <x-nav-link :href="route('project.index')" :active="request()->routeIs('todo')">
                         Project
                     </x-nav-link>
-                    <x-nav-link :href="route('todo.index')" :active="request()->routeIs('todo')">
-                        Todo
-                    </x-nav-link>
                 </div>
             </div>
 

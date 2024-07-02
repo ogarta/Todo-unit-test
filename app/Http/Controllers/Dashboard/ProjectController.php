@@ -53,7 +53,7 @@ class ProjectController extends Controller
     public function edit(string $id)
     {
         $project = $this->projectService->find($id);
-        $users = User::all();
+        $users = User::paginate(5);
         return view('pages.project.edit', compact('project', 'users'));
     }
 
@@ -62,7 +62,8 @@ class ProjectController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $this->projectService->update($request->all(), $id);
+        return redirect()->route('project.index');
     }
 
     /**
@@ -70,6 +71,7 @@ class ProjectController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->projectService->delete($id);
+        return redirect()->route('project.index');
     }
 }

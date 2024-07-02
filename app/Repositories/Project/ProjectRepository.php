@@ -13,4 +13,15 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
         return Project::class;
     }
 
+    public function update(array $data, string $id)
+    {
+        return tap($this->model->find($id))->update($data);
+    }
+
+    public function all()
+    {
+        return $this->model->whereHas('users', function ($query) {
+            $query->where('user_id', auth()->id());
+        })->paginate(5);
+    }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Todo\FilterTodoRequest;
 use App\Http\Requests\Todo\StoreSubTodoRequest;
 use App\Http\Requests\Todo\StoreTodoRequest;
+use App\Http\Requests\Todo\UpdateSubTodoRequest;
 use App\Http\Requests\Todo\UpdateTodoRequest;
 use App\Models\Todo;
 use App\Services\CategoryService;
@@ -91,6 +92,12 @@ class TodoController extends Controller
     public function storeSubtask(StoreSubTodoRequest $request, Todo $todo)
     {
         $this->todoService->createSubtask($request->all()['subtask'], $todo);
+        return redirect()->back();
+    }
+
+    public function updateSubtask(UpdateSubTodoRequest $request, int $id)
+    {
+        $this->todoService->update($request->all()['subtaskUpdate'], $id);
         return redirect()->back();
     }
 }

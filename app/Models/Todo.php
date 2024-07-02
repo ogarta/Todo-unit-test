@@ -15,6 +15,7 @@ class Todo extends BaseModel
         'priority',
         'due_date',
         'parent_id',
+        'project_id'
     ];
 
     public function subtasks()
@@ -30,6 +31,11 @@ class Todo extends BaseModel
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
     }
 
     public static function boot()
