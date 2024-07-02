@@ -8,7 +8,7 @@ class CategoryService extends BaseService
     public function __construct(private CategoryRepositoryInterface $categoryRepository)
     {}
 
-    public function all()
+    public function getAll()
     {
         return $this->categoryRepository->all();
     }

@@ -20,6 +20,11 @@ class AppServiceProvider extends ServiceProvider
             \App\Repositories\Todo\TodoRepositoryInterface::class,
             \App\Repositories\Todo\TodoRepository::class
         );
+
+        $this->app->bind(
+            \App\Repositories\Project\ProjectRepositoryInterface::class,
+            \App\Repositories\Project\ProjectRepository::class
+        );
     }
 
     /**

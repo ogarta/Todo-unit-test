@@ -25,8 +25,8 @@ class TodoController extends Controller
      */
     public function index(FilterTodoRequest $request)
     {
-        $groupTodo = $this->todoService->all($request->all());
-        $categories = $this->categoryService->all();
+        $groupTodo = $this->todoService->getAll($request->all());
+        $categories = $this->categoryService->getAll();
         $filters = $this->todoService->getFilter($request->all());
         return view('pages.todo.index', compact('groupTodo', 'categories', 'filters'));
     }
@@ -62,7 +62,7 @@ class TodoController extends Controller
     public function edit(string $id)
     {
         $todo = $this->todoService->find($id);
-        $categories = $this->categoryService->all();
+        $categories = $this->categoryService->getAll();
         
         return view('pages.todo.edit', compact('todo', 'categories'));
     }

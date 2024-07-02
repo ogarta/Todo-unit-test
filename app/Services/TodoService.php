@@ -9,7 +9,7 @@ class TodoService extends BaseService
     public function __construct(private TodoRepositoryInterface $todoRepository)
     {}
 
-    public function all(array $data)
+    public function getAll(array $data)
     {
         $listTodo =  $this->todoRepository->getListByFilter($data);
 

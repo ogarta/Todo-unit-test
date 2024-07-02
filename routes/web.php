@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\ProjectController;
 use App\Http\Controllers\Dashboard\TodoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -10,6 +11,7 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::resource('project', ProjectController::class);
     Route::resource('todo', TodoController::class);
     Route::post('subtask/{todo}', [TodoController::class, 'storeSubtask'])->name('subtask.store');
     Route::resource('categories', CategoryController::class);
