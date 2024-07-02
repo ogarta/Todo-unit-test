@@ -95,7 +95,7 @@ class TodoController extends Controller
         return redirect()->back();
     }
 
-    public function updateSubtask(UpdateSubTodoRequest $request, int $id)
+    public function updateSubtask(UpdateSubTodoRequest $request, string $id)
     {
         $this->todoService->update($request->all()['subtaskUpdate'], $id);
         return redirect()->back();
